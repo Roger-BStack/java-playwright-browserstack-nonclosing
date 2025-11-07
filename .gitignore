@@ -1,0 +1,14 @@
+.idea/
+.classpath
+.project
+.settings/
+.gradle/
+gradle/
+build/
+target/
+log/
+logs/
+browserstack.err
+.DS_Store
+gradlew
+gradlew.bat
