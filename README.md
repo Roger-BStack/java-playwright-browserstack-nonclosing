@@ -7,7 +7,7 @@ This repo contains samples for running junit-5 playwright tests on BrowserStack,
 
 ## Running tests:
 * To run the sample tests on BrowserStack, run `gradlew clean test -Drun-on-bstack=true`.
-* To run the sample tests on your machines, run `gradlew clean test` OR `gradlew clean test -Drun-on-bstack=true`.
+* To run the sample tests on your machines, run `gradlew clean test` OR `gradlew clean test -Drun-on-bstack=false`.
 
 Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
 
