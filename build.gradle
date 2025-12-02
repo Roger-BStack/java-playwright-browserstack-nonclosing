@@ -49,10 +49,10 @@ println "useBStack: ${useBStack}"
 def browserstackSDKArtifact = configurations.testRuntimeClasspath.find {
     it.name.startsWith('browserstack-java-sdk')
 }
-
 if(useBStack && browserstackSDKArtifact != null){
     apply plugin: 'com.browserstack.gradle-sdk'
 }
+
 
 test {
     dependsOn assemble, testClasses

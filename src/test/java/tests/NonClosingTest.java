@@ -16,7 +16,7 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NonClosingTest {
     public static String userName, accessKey;
     public static Map<String, Object> browserStackYamlMap;
@@ -36,7 +36,12 @@ public class NonClosingTest {
     @BeforeEach
     void launchBrowser(TestInfo testInfo) {
         String displayName = testInfo.getDisplayName();
-        String methodName = testInfo.getTestMethod().orElseThrow().getName();
+        String methodName = "";
+        if(testInfo.getTestMethod().isPresent()){
+            methodName = testInfo.getTestMethod().get().getName();
+        } else {
+            methodName = displayName;
+        }
 
         System.out.println("BeforeEach for test: " + displayName);
         System.out.println("Method name: " + methodName);
@@ -71,8 +76,9 @@ public class NonClosingTest {
                 capabilitiesObject.put("browserstack.key", accessKey);
                 capabilitiesObject.put("browserstack.source",
                         "java-playwright-browserstack:sample-sdk:v1.0");
-                capabilitiesObject.put("browserstack.projectName", "BrowserStack Samples RJ");
-                capabilitiesObject.put("browserstack.buildName", "browserstack build rj");
+
+                capabilitiesObject.put("projectName", "BrowserStack Samples NonClosing");
+                capabilitiesObject.put("buildName", "browserstack build nonclosing");
 
                 capabilitiesObject.put("browser", "chrome");
 
@@ -118,7 +124,6 @@ public class NonClosingTest {
 
     @Test
     void bstackOtherDeviceTest() {
-//        System.out.println("[[BSTACK_SET_CUSTOM_TAG||ID=TC-1428022]]");
         try {
             page.navigate("https://www.bstackdemo.com/");
 
@@ -126,7 +131,7 @@ public class NonClosingTest {
             page.locator("//*[@id='5']/div[4]").click();
             page.locator(".float\\-cart__content");
             String product_in_cart =
-                    page.locator("//*[@id='__next12345']/div/div/div[2]/div[2]/div[2]/div/div[3]/p[1]")
+                    page.locator("//*[@id='__next']/div/div/div[2]/div[2]/div[2]/div/div[3]/p[1]")
                     .textContent();
 
             assertEquals(product_in_cart, product_name);
